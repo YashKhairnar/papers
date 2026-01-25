@@ -1,0 +1,2 @@
+# Add project dependencies below, e.g.:
+# numpy==1.27.0
