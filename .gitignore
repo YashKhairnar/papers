@@ -1,3 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
+RNN_LSTM/dataset
+RNN_LSTM/.venv
+RNN_LSTM/.gradio
+RNN_LSTM/__pycache__

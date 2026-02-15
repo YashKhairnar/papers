@@ -1,26 +1,9 @@
-# Project virtual environment
+<div align="center">
 
-Create the virtual environment (already done here):
+# Research & Experiments 🧬
 
-```bash
-python3 -m venv .venv
-```
+> A centralized hub for exploring foundational AI, ML research papers and hands-on implementations.
 
-Activate on macOS / Linux:
+---
+*Following the frontiers of machine learning*
 
-```bash
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-Deactivate:
-
-```bash
-deactivate
-```
