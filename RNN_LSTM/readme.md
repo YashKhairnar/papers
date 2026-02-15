@@ -101,12 +101,16 @@ Launch the interactive Gradio interface:
 ```bash
 python3 app.py
 ```
-OR try it out live at 
-```
+
 ### TensorBoard
 Visualize the training progress:
 ```bash
 tensorboard --logdir=runs
+```
+### Live Demo
+Try it out live at 
+```bash
+https://huggingface.co/spaces/Zeus2001/LSMT_audio_classification
 ```
 
 ---

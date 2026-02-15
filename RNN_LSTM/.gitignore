@@ -1,1 +1,7 @@
 dataset
+.venv/
+__pycache__/
+*.pyc
+.venv
+.gradio
+__pycache__
