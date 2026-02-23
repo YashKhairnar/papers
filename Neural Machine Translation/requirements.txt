@@ -1,0 +1,13 @@
+torch
+gradio
+streamlit
+plotly
+watchdog
+sentencepiece
+matplotlib
+pandas
+nltk
+torchvision
+
+
+
