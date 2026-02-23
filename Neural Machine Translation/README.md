@@ -1,5 +1,7 @@
 # English → Marathi Neural Machine Translation
 
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/Zeus2001/English_to_Marathi_NMT)
+
 A sequence-to-sequence model with **Attention** for English-to-Marathi translation, trained on the [Samantar](https://ai4bharat.iitm.ac.in/samantar/) parallel corpus using an NVIDIA A100 80GB GPU.
 
 > **Paper**: [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473) — Bahdanau et al., 2014
