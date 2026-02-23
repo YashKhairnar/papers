@@ -97,13 +97,16 @@ class SentencePieceWrapper:
 # Engine Load (once at startup)
 # ---------------------------------------------------------------------------
 # Auto-detect best available checkpoint:
-#   - Local dev:  uses full-precision 100-epoch model
-#   - HF Space:   uses FP16-compressed model (413 MB)
+#   - Local dev:  uses full-precision 100/140-epoch model from models/
+#   - HF Space:   uses FP16-compressed model from root
 CKPT_PATH = next(
-    (f for f in ["best_a100_model_100.pt", "deploy_model_fp16.pt"] if os.path.exists(f)),
-    "deploy_model_fp16.pt"  # fallback (will show "not found" warning)
+    (f for f in ["models/best_a100_model_140.pt", "models/deploy_model_fp16.pt", "deploy_model_fp16.pt"] if os.path.exists(f)),
+    "models/deploy_model_fp16.pt"  # fallback (will show "not found" warning)
 )
-VOCAB_PATH = "en_mr_unigram.model"
+VOCAB_PATH = next(
+    (f for f in ["models/en_mr_unigram.model", "en_mr_unigram.model"] if os.path.exists(f)),
+    "models/en_mr_unigram.model"
+)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -272,11 +275,12 @@ CUSTOM_CSS = """
 """
 
 SAMPLES = [
-    "Where's the nearest train station?",
-    "I like to read books in free time.",
-    "What are you thinking about?",
     "What's your name?",
-    "There is a puddle on the road.",
+    "She won a gold medal at the recent international championship",
+    "They have decided to completely shut down the old factory next month",
+    "The Indian cricket team secured a comfortable victory, winning the match by six wickets.",
+    "Due to heavy rainfall and strong winds in the coastal areas, many schools have been closed to ensure the safety of students.",
+    "Three people were severely injured when two speeding cars collided on the highway. Police have registered a case and are investigating the matter.",
 ]
 
 # Use robust Gradio 6 native theme

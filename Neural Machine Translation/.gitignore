@@ -1,0 +1,27 @@
+# Environments
+venv/
+.env
+
+# Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Data and Models
+data/
+models/*.pt
+models/*.model
+models/*.vocab
+*.pt
+*.model
+*.vocab
+*.csv
+*.txt
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

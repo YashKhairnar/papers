@@ -1,6 +1,6 @@
 # English → Marathi Neural Machine Translation
 
-A sequence-to-sequence model with **Bahdanau (Additive) Attention** for English-to-Marathi translation, trained on the [Samantar](https://ai4bharat.iitm.ac.in/samantar/) parallel corpus using an NVIDIA A100 80GB GPU.
+A sequence-to-sequence model with **Attention** for English-to-Marathi translation, trained on the [Samantar](https://ai4bharat.iitm.ac.in/samantar/) parallel corpus using an NVIDIA A100 80GB GPU.
 
 > **Paper**: [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473) — Bahdanau et al., 2014
 
@@ -50,18 +50,26 @@ A sequence-to-sequence model with **Bahdanau (Additive) Attention** for English-
 | **torch.compile**   | Enabled for optimized kernel execution     |
 | **Gradient Clip**   | Max norm 1.0                               |
 | **Epochs**          | 100                                        |
-| **Train Time**      | ~5.5 Hours (A100 80GB)                     |
+| **Train Time**      | ~7.5 Hours (A100 80GB)                     |
 | **Evaluation**      | BLEU score (NLTK) + chrF (NLTK)            |
 | **Teacher Forcing** | 100% during training                       |
 
+### Convergence Plots
+<p align="center">
+  <img src="assets/Loss_Batch-2.svg" width="45%" alt="Training Loss (Earlier Epochs)">
+  <img src="assets/Loss_Batch.svg" width="45%" alt="Training Loss (Later Epochs)">
+</p>
+
+**Convergence Analysis**: The plots above demonstrate the model's learning stability. The left plot shows the initial gradual descent as the model learns basic alignments early in training. The right plot details the later phases, showing a steep descent followed by a smooth steady state of fine-tuning where the loss flattens out around `~0.25`, indicating proper convergence.
+
 ## Performance Metrics
 
-Evaluation conducted on 1,000 samples from the Samantar English-Marathi test set using the 100-epoch checkpoint.
+Evaluation conducted on 1,000 samples from the Samantar English-Marathi test set using the 140-epoch checkpoint.
 
 | Metric | Score | Significance |
 | :--- | :---: | :--- |
-| **BLEU** | **4.54** | Measures exact word-level sequence match. |
-| **chrF** | **28.66** | Character n-gram F-score; provides a robust measure for Marathi morphology. |
+| **BLEU** | **4.74** | Measures exact word-level sequence match. |
+| **chrF** | **28.73** | Character n-gram F-score; provides a robust measure for Marathi morphology. |
 
 **Technical Analysis**: The pronounced margin between the chrF and BLEU scores suggests that while the model has acquired significant subword and character-level semantic knowledge, word-level exact matches remain challenging. This is typical for agglutinative languages like Marathi, where character-based metrics are often more representative of translation quality.
 
@@ -75,36 +83,51 @@ While the model demonstrates strong foundational translation capabilities, users
 4. **Domain Shift**: Trained exclusively on the Samantar corpus (which leans heavily toward news, government, and general web crawls), the model's performance may drop significantly on colloquial speech, slang, or raw social media text.
 
 <p align="center">
-  <img src="english_wordcloud.png" width="45%" alt="English Word Cloud">
-  <img src="marathi_wordcloud.png" width="45%" alt="Marathi Word Cloud">
+  <img src="assets/english_wordcloud.png" width="45%" alt="English Word Cloud">
+  <img src="assets/marathi_wordcloud.png" width="45%" alt="Marathi Word Cloud">
 </p>
 
 ---
 
 ## Repository Structure
 
-```
+```text
 Neural Machine Translation/
-├── app.py                             # Unified application (local dev + HF deployment)
-├── train.py                           # Training and checkpointing logic
-├── encoder.py                         # Bidirectional GRU encoder
-├── decoder.py                         # GRU decoder with additive attention
-├── attention.py                       # Bahdanau attention mechanism
-├── seq2seq.py                         # Sequence-to-Sequence orchestration
-├── dataset.py                         # Data processing and tokenization
-├── eval_utils.py                      # Evaluation and metric computation
-├── inference.py                       # Command-line inference and evaluation
-├── best_a100_model_100.pt             # Trained model checkpoint (100 epochs)
-├── samantar_dataset.csv               # Processed parallel corpus
-└── requirements.txt                   # Dependency specification
+├── app.py                             # Unified standalone application
+├── requirements.txt                   # Dependency specification
+├── README.md                          # Project documentation
+│
+├── src/                               # Core Machine Learning Modules
+│   ├── encoder.py                     # Bidirectional GRU encoder
+│   ├── decoder.py                     # GRU decoder with additive attention
+│   ├── attention.py                   # Bahdanau attention mechanism
+│   ├── seq2seq.py                     # Sequence-to-Sequence orchestration
+│   ├── dataset.py                     # Data processing and tokenization
+│   └── eval_utils.py                  # Evaluation and metric computation
+│
+├── scripts/                           # Execution & Utility Scripts
+│   ├── train.py                       # Training orchestration
+│   ├── inference.py                   # Command-line evaluation
+│   ├── prepare_hf_model.py            # Converts weights to FP16
+│   └── generate_wordclouds.py         # Visualization generation
+│
+├── notebooks/                         # Jupyter Notebooks & Research
+│   └── English_Marathi_A100_Training.ipynb
+│
+├── models/                            # Weights and Tokenizers
+│   ├── best_a100_model_140.pt         # Full precision checkpoint
+│   └── en_mr_unigram.model            # SentencePiece Model
+│
+└── data/                              # Datasets
+    └── samantar_dataset.csv           # Parralel text corpus
 ```
 
 ## Model Weights
 
-The pre-trained model checkpoint (`best_a100_model_100.pt`, 2.5GB) is available for download:
+The pre-trained model checkpoint (`best_a100_model_140.pt`, 2.5GB) is available for download:
 > 🔗 **[Download Weights (Google Drive)](https://drive.google.com/drive/folders/1cCHzMDJrPjBvI3YYztyKZ06l7SuErN7Y?usp=share_link)**
 
-Place the downloaded `.pt` file in the root directory alongside `app.py`.
+Place the downloaded `.pt` file in the `models/` directory.
 
 ## Quick Start
 
@@ -121,7 +144,7 @@ python app.py
 ### 3. Execution of Evaluation Suite
 To execute the automated evaluation on the test set:
 ```bash
-python inference.py --eval --model best_a100_model_100.pt
+python scripts/inference.py --eval --model models/best_a100_model_140.pt
 ```
 
 ## Architectural and Implementation Details
