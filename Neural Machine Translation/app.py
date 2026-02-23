@@ -96,8 +96,13 @@ class SentencePieceWrapper:
 # ---------------------------------------------------------------------------
 # Engine Load (once at startup)
 # ---------------------------------------------------------------------------
-
-CKPT_PATH  = "best_a100_model_80.pt"
+# Auto-detect best available checkpoint:
+#   - Local dev:  uses full-precision 100-epoch model
+#   - HF Space:   uses FP16-compressed model (413 MB)
+CKPT_PATH = next(
+    (f for f in ["best_a100_model_100.pt", "deploy_model_fp16.pt"] if os.path.exists(f)),
+    "deploy_model_fp16.pt"  # fallback (will show "not found" warning)
+)
 VOCAB_PATH = "en_mr_unigram.model"
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -267,11 +272,11 @@ CUSTOM_CSS = """
 """
 
 SAMPLES = [
-    "Good morning, how are you?",
-    "My name is Yash and I live in India.",
-    "We should protect the environment by planting more trees every year.",
-    "The students prepared well for their final examinations and achieved excellent results.",
-    "After the heavy monsoon rains, the river overflowed its banks and flooded several nearby villages.",
+    "Where's the nearest train station?",
+    "I like to read books in free time.",
+    "What are you thinking about?",
+    "What's your name?",
+    "There is a puddle on the road.",
 ]
 
 # Use robust Gradio 6 native theme
