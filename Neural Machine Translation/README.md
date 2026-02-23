@@ -64,13 +64,9 @@ Neural Machine Translation/
 ├── seq2seq.py                         # Seq2Seq orchestrator (teacher forcing)
 ├── dataset.py                         # PyTorch Dataset + SentencePieceWrapper
 ├── eval_utils.py                      # BLEU scoring + greedy translate utility
-├── inference.py                       # Standalone inference script
-├── en_mr_unigram.model                # Trained SentencePiece tokenizer
-├── best_a100_model_60.pt              # Best checkpoint (60 epochs, ~2.6GB)
-├── samantar_dataset.csv               # Cleaned parallel corpus
-├── English_Marathi_A100_Training.ipynb # Full Colab training notebook
-├── EDA.ipynb                          # Exploratory Data Analysis
-├── tokenizer.ipynb                    # SentencePiece training notebook
+├── inference.py                       # Inference & test evaluation CLI
+├── best_a100_model_80.pt              # Best checkpoint (80 epochs)
+├── samantar_dataset.csv               # Parallel corpus (English-Marathi)
 └── requirements.txt                   # Python dependencies
 ```
 
@@ -90,13 +86,11 @@ python gr_app.py
 
 Opens at `http://127.0.0.1:7860` — type English text or click a sample to translate. An interactive **attention heatmap** is generated for each translation.
 
-### 3. Train from Scratch
-
+### 3. Evaluate on Test Set
+Run the model on 1,000 samples from the test split and calculate objective metrics:
 ```bash
-python train.py
+python inference.py --eval --model best_a100_model_80.pt
 ```
-
-Training auto-resumes from `checkpoint_epoch_latest.pt` if it exists. Logs loss and BLEU after each epoch.
 
 ## Key Implementation Details
 
