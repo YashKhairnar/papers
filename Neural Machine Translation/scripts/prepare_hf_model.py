@@ -2,8 +2,8 @@ import torch
 import os
 
 def prepare_for_hf():
-    input_file = "../models/best_a100_model_140.pt"
-    output_file = "../models/deploy_model_fp16.pt"
+    input_file = "Neural Machine Translation/models/best_a100_model_140.pt"
+    output_file = "Neural Machine Translation/models/deploy_model_fp16.pt"
     
     if not os.path.exists(input_file):
         print(f"Error: {input_file} not found.")
