@@ -1,2 +1,9 @@
 __pycache__/
 To Read/
+.DS_Store
+*.hdf5
+*.pth
+*.zip
+*.tar.gz
+outputs/
+plots/
