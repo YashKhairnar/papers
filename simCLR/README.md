@@ -1,5 +1,7 @@
 # SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
 
+Paper link : https://arxiv.org/pdf/2002.05709
+
 This repository contains a clean, modular implementation of **SimCLR** (Simple Contrastive Learning) applied to the CIFAR-10 dataset. The implementation is optimized for Mac (supporting `mps` acceleration) and includes built-in tools for checkpointing and visual representation analysis.
 
 ## Features
