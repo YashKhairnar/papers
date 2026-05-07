@@ -3,6 +3,8 @@ To Read/
 .DS_Store
 *.hdf5
 *.pth
+!simCLR/weights/*.pth
+!simCLR/plots/*.png
 *.zip
 *.tar.gz
 outputs/
