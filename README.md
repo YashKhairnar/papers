@@ -2,7 +2,8 @@
 
 # Research & Experiments 🧬
 
-A centralized hub for exploring foundational AI, ML research papers and hands-on implementations.
+A centralized hub for exploring foundational AI, ML research papers and hands-on implementations. 
+I am following a curated list of papers, which I think are important to grow my understanding of this field.
 
 ---
 
