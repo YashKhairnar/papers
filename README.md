@@ -1,10 +1,10 @@
 <div align="center">
 
-# Research & Experiments 🧬
+# Research & Experiments
 
 A centralized hub for exploring foundational AI, ML research papers and hands-on implementations. 
-I am following a curated list of papers, which I think are important to grow my understanding of this field.
-
+I am following a curated list of [papers](https://docs.google.com/spreadsheets/d/1eW0FaQCaDBMA0EdtxEmThL5QZTU4R348UXWxSnchXX8/edit?usp=sharing)
+, which I think are important to grow my understanding of this field. 
 ---
 
 </div>
